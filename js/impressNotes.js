@@ -20,15 +20,18 @@
           '<link rel="stylesheet" type="text/css" media="screen" href="css/impressNotes.css">' +
         '</head><body>' + 
         '<div id="notes"></div>' +
-          '<div class="controls"> ' +
-            '<a href="#" onclick="impress().prev(); return false;" />Prev</a>' +
-            '<a href="#" onclick="impress().next(); return false;" />Next</a>' +
-          '</div>' +
+        '<div id="controls"> ' +
+          '<div id="prev"><a  href="#" onclick="impress().prev(); return false;" />Prev</a></div>' +
+          '<div id="next"><a  href="#" onclick="impress().next(); return false;" />Next</a></div>' +
+          '<div id="clock">00:00:00 AM</div>' +
+          '<div id="timer">00m 00s</div>' +
         '</div>' +
         '</body></html>';
 
     // All notes windows, so that you can call notes() repeatedly.
     var allNotes = {};
+    
+    var useAMPM = false;
 
     // The notes object
     var notes = window.notes = function (rootId) {
@@ -44,7 +47,7 @@
         
         var notesWindow = null;
         
-        // Replace the HTML
+        // Sync the notes to the step
         var onStepEnter = function(){
             if(notesWindow) {
                 var newNotes = document.querySelector('.active .notes');
@@ -58,6 +61,27 @@
             }
         };
 
+        // Show a clock
+        var clockTick = function () {
+            var now = new Date();
+            var hours = now.getHours();
+            var minutes = now.getMinutes();
+            var seconds = now.getSeconds();
+            var ampm = "";
+        
+            hours = ( hours < 10 ? "0" : "" ) + hours;
+            minutes = ( minutes < 10 ? "0" : "" ) + minutes;
+            seconds = ( seconds < 10 ? "0" : "" ) + seconds;
+          
+            if (useAMPM) {
+                ampm = ( hours < 12 ) ? "AM" : "PM";
+                hours = ( hours > 12 ) ? hours - 12 : hours;
+                hours = ( hours == 0 ) ? 12 : hours;
+            }
+          
+            notesWindow.document.getElementById("clock").firstChild.nodeValue = hours + ":" + minutes + ":" + seconds + " " + ampm;;
+        }
+
         var open = function() {
             if (notesWindow && !notesWindow.closed) {
                 notesWindow.focus();
@@ -67,6 +91,11 @@
                 notesWindow.document.write(notesTemplate);
                 notesWindow.document.title = "Speaker Notes (" + document.title + ")";
                 notesWindow.impress = window.impress;
+                notesWindow.clockInterval = setInterval('notes("' + rootId + '").clockTick()', 1000 );
+                notesWindow.onbeforeunload = function() {
+                    // I don't know why onunload doesn't work here.
+                    clearInterval(notesWindow.clockInterval);
+                };
                 onStepEnter();
             }
         };
@@ -88,8 +117,9 @@
             }, false);
             
         }
-        
-        return allNotes[rootId] = {init: init, open: open}
+                
+        // Return the object        
+        return allNotes[rootId] = {init: init, open: open, updateClock: updateClock}
         
     }
     

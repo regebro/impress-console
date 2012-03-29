@@ -1,12 +1,49 @@
-body, h1, h2, p {
+html {
+    height: 100%
+}
+
+body {
+    padding: 0;
+    margin: 4%;
+    font-family: verdana, arial, sans-serif;
+    font-size: 30px;
+    height: 92%;
+}
+
+div#notes {
+    margin: 0;
+    padding: 0;
+    height: 94%;
+}
+
+div#controls {
+    margin: 0;
+    padding: 0;
+    height: 6%;
+}
+
+div#prev {
+    margin: 0;
+    padding: 0;
+    float: left;
+}
+
+div#next {
+    margin: 0;
+    padding: 0;
+    float: right;
+}
+
+div#clock {
+    margin-left: 2em;
+    padding: 0;
     text-align: center;
+    float: left;
 }
 
-h1.giant {
-    font-size: 600%;
+div#timer {
+    margin-right: 2em;
+    padding: 0;
+    text-align: center;
+    float: right;
 }
-
-h2.giant {
-    font-size: 300%;
-}
-

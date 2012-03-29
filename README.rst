@@ -26,9 +26,9 @@ All in all, the impress.js initialization at the end of the file hence should lo
         notes().open();
     </script>
 
-Contributors
-============
+Credits
+=======
 
-* David Souther, davidsouther@gmail.com
+* David Souther, davidsouther@gmail.com, author of the original notes.js
 
-* Lennart Regebro, regebro@gmail.com
+* Lennart Regebro, regebro@gmail.com, author of impressNotes.js
