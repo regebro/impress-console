@@ -1,13 +1,13 @@
 /**
- * impress.js notes
+ * impressNotes.js
  *
- * Adds support for inline speaker notes.
+ * Adds support for inline speaker notes to impress.js
  *
  * MIT Licensed.
  *
- * Copyright 2012 David Souther (davidsouther@gmail.com), Lennart Regebro, regebro@gmail.com
+ * Copyright 2012 David Souther (davidsouther@gmail.com), Lennart Regebro (regebro@gmail.com)
  *
- * This is a rewrite of David Souther's notes.js to OO JS and compatibility with impress.js 0.5.
+ *  version: 0.1
  * 
  */
 
@@ -15,28 +15,32 @@
     'use strict';
 
     // This is the default template for the speaker notes window
-    var notesTemplate = document.getElementById('impress-notes-template') ?
-        document.byId('notesTemplate').innerHTML :
+    var notesTemplate = '<!DOCTYPE html>' + 
+        '<html><head>' + 
+          '<link rel="stylesheet" type="text/css" media="screen" href="css/impressNotes.css">' +
+        '</head><body>' + 
         '<div id="notes"></div>' +
           '<div class="controls"> ' +
             '<a href="#" onclick="impress().prev(); return false;" />Prev</a>' +
             '<a href="#" onclick="impress().next(); return false;" />Next</a>' +
-          '</div>';
-        '</div>';
+          '</div>' +
+        '</div>' +
+        '</body></html>';
 
-    // helper methods
-    
-    var byId = function ( id ) {
-        return document.getElementById(id);
-    };
-    
-    // note object
+    // All notes windows, so that you can call notes() repeatedly.
+    var allNotes = {};
 
+    // The notes object
     var notes = window.notes = function (rootId) {
 
         rootId = rootId || "impress";
+        
+        if (allNotes[rootId]) {
+            return allNotes[rootId];
+        }
+        
         // root presentation elements
-        var root = byId( rootId );
+        var root = document.getElementById( rootId );
         
         var notesWindow = null;
         
@@ -59,9 +63,10 @@
                 notesWindow.focus();
             } else {
                 notesWindow = window.open();
+                notesWindow.document.open();
+                notesWindow.document.write(notesTemplate);
                 notesWindow.document.title = "Speaker Notes (" + document.title + ")";
                 notesWindow.impress = window.impress;
-                notesWindow.document.body.innerHTML = notesTemplate;
                 onStepEnter();
             }
         };
@@ -84,7 +89,7 @@
             
         }
         
-        return {init: init, open: open}
+        return allNotes[rootId] = {init: init, open: open}
         
     }
     
