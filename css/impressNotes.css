@@ -1,0 +1,12 @@
+body, h1, h2, p {
+    text-align: center;
+}
+
+h1.giant {
+    font-size: 600%;
+}
+
+h2.giant {
+    font-size: 300%;
+}
+
