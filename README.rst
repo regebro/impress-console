@@ -29,6 +29,6 @@ All in all, the impress.js initialization at the end of the file hence should lo
 Contributors
 ============
 
-* David Souther (davidsouther@gmail.com)
+* David Souther, davidsouther@gmail.com
 
 * Lennart Regebro, regebro@gmail.com
