@@ -31,11 +31,11 @@ You can then open the speaker window with the N key. You can also open it automa
 All in all, the impress.js initialization at the end of the file hence should look something like this::
 
     <script src="js/impress.js"></script>
-    <script src="js/impressNotes.js"></script>
+    <script src="js/impressConsole.js"></script>
     <script>
         impress().init();
-        notes().init();
-        notes().open(); // If you want them to open automatically
+        console().init();
+        console().open(); // If you want them to open automatically
     </script>
 
 The timer at the bottom of the screen starts automatically, and will reset if you click on it.
