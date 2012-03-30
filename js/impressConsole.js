@@ -78,7 +78,7 @@
                 // Set notes to next steps notes.
                 // This may in certain cases be the wrong notes, as you may go through
                 // steps in arbitrary orders, for example backwards.
-                var newNotes = nextStep().querySelector('.notes');
+                var newNotes = document.querySelector('.active').querySelector('.notes');
                 if (newNotes) {
                     newNotes = newNotes.innerHTML;
                 } else {
