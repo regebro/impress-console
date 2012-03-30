@@ -2,7 +2,9 @@ impressNotes.js
 ===============
 
 This file provides a window with speaker notes for impress.js.
-This is a rewrite of David Souther's notes.js to OO JS and compatibility with impress.js 0.5.
+
+This is a rewrite of David Souther's notes.js to OO JavaScript, compatibility
+
 
 To use it you add the following to the bottom of your presentation HTML::
 

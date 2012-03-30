@@ -19,7 +19,13 @@
         '<html><head>' + 
           '<link rel="stylesheet" type="text/css" media="screen" href="css/impressNotes.css">' +
         '</head><body>' + 
-        '<div id="notes"></div>' +
+        '<div id="console">' +
+          '<div id="views">' +
+            '<iframe id="slideView" scrolling="no"></iframe>' +
+            '<iframe id="preView" scrolling="no"></iframe>' +          
+          '</div>' +
+          '<div id="notes"></div>' +
+        '</div>' +
         '<div id="controls"> ' +
           '<div id="prev"><a  href="#" onclick="impress().prev(); return false;" />Prev</a></div>' +
           '<div id="next"><a  href="#" onclick="impress().next(); return false;" />Next</a></div>' +
@@ -50,14 +56,20 @@
         // Sync the notes to the step
         var onStepEnter = function(){
             if(notesWindow) {
+                // Set notes
                 var newNotes = document.querySelector('.active .notes');
                 if (newNotes) {
                     newNotes = newNotes.innerHTML;
                 } else {
                     newNotes = "No notes for this step";
                 }
-              
                 notesWindow.document.getElementById('notes').innerHTML = newNotes;
+
+                // Sync slide view                
+                notesWindow.document.getElementById('slideView').src = document.URL;
+                var nextSlideNo = parseInt(document.URL.substring(document.URL.search('/step-')+6), 10) + 1;
+                var nextSlide = document.URL.substring(0, document.URL.search('/step-')+6);
+                notesWindow.document.getElementById('preView').src = nextSlide + nextSlideNo;
             }
         };
 
@@ -83,19 +95,30 @@
         }
 
         var open = function() {
+            if(top.isNotesWindow){ 
+                return;
+            }
+            
             if (notesWindow && !notesWindow.closed) {
                 notesWindow.focus();
             } else {
                 notesWindow = window.open();
+                // This sets the window location to the main window location, so css can be loaded:
                 notesWindow.document.open();
+                // Write the template:
                 notesWindow.document.write(notesTemplate);
                 notesWindow.document.title = "Speaker Notes (" + document.title + ")";
                 notesWindow.impress = window.impress;
+                // We set this flag so we can detect it later, to prevent infinite popups.
+                notesWindow.isNotesWindow = true;
+                // Add clock tick
                 notesWindow.clockInterval = setInterval('notes("' + rootId + '").clockTick()', 1000 );
+                // Cleanup
                 notesWindow.onbeforeunload = function() {
                     // I don't know why onunload doesn't work here.
                     clearInterval(notesWindow.clockInterval);
                 };
+                // Show the current slide
                 onStepEnter();
             }
         };
@@ -119,7 +142,7 @@
         }
                 
         // Return the object        
-        return allNotes[rootId] = {init: init, open: open, updateClock: updateClock}
+        return allNotes[rootId] = {init: init, open: open, clockTick: clockTick}
         
     }
     

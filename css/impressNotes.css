@@ -10,40 +10,35 @@ body {
     height: 92%;
 }
 
-div#notes {
+div#console {
     margin: 0;
-    padding: 0;
     height: 94%;
+}
+
+div#view {
 }
 
 div#controls {
     margin: 0;
-    padding: 0;
     height: 6%;
 }
 
 div#prev {
-    margin: 0;
-    padding: 0;
     float: left;
 }
 
 div#next {
-    margin: 0;
-    padding: 0;
     float: right;
 }
 
 div#clock {
     margin-left: 2em;
-    padding: 0;
     text-align: center;
     float: left;
 }
 
 div#timer {
     margin-right: 2em;
-    padding: 0;
     text-align: center;
     float: right;
 }
