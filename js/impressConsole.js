@@ -76,8 +76,6 @@
         var onStepLeave = function(){
             if(consoleWindow) {
                 // Set notes to next steps notes.
-                // This may in certain cases be the wrong notes, as you may go through
-                // steps in arbitrary orders, for example backwards.
                 var newNotes = document.querySelector('.active').querySelector('.notes');
                 if (newNotes) {
                     newNotes = newNotes.innerHTML;
@@ -91,16 +89,6 @@
         // Sync the previews to the step
         var onStepEnter = function(){
             if(consoleWindow) {
-                // Set notes again. This is to make sure they are the current notes, even
-                // when you aren't going through them in the "wrong" order.
-                var newNotes = document.querySelector('.active .notes');
-                if (newNotes) {
-                    newNotes = newNotes.innerHTML;
-                } else {
-                    newNotes = 'No notes for this step';
-                }
-                consoleWindow.document.getElementById('notes').innerHTML = newNotes;
-
                 // Set the views                
                 consoleWindow.document.getElementById('slideView').src = document.URL;
                 var baseURL = document.URL.substring(0, document.URL.search('#/'));
@@ -158,6 +146,36 @@
                 consoleWindow.timerStart = new Date();
                 consoleWindow.timerReset = timerReset;
                 consoleWindow.clockInterval = setInterval('console("' + rootId + '").clockTick()', 1000 );
+                // keyboard navigation handlers
+                // prevent default keydown action when one of supported key is pressed
+                consoleWindow.document.addEventListener("keydown", function ( event ) {
+                    if ( event.keyCode === 9 || ( event.keyCode >= 32 && event.keyCode <= 34 ) || (event.keyCode >= 37 && event.keyCode <= 40) ) {
+                        event.preventDefault();
+                    }
+                }, false);
+                
+                // trigger impress action on keyup
+                consoleWindow.document.addEventListener("keyup", function ( event ) {
+                    if ( event.keyCode === 9 || ( event.keyCode >= 32 && event.keyCode <= 34 ) || (event.keyCode >= 37 && event.keyCode <= 40) ) {
+                        switch( event.keyCode ) {
+                            case 33: // pg up
+                            case 37: // left
+                            case 38: // up
+                                     impress().prev();
+                                     break;
+                            case 9:  // tab
+                            case 32: // space
+                            case 34: // pg down
+                            case 39: // right
+                            case 40: // down
+                                     impress().next();
+                                     break;
+                        }
+                        
+                        event.preventDefault();
+                    }
+                }, false);
+                
                 // Cleanup
                 consoleWindow.onbeforeunload = function() {
                     // I don't know why onunload doesn't work here.
