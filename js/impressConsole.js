@@ -3,11 +3,11 @@
  *
  * Adds a presenter console to impress.js
  *
- * MIT Licensed.
+ * MIT Licensed, see license.txt.
  *
- * Copyright 2012 David Souther (davidsouther@gmail.com), Lennart Regebro (regebro@gmail.com)
+ * Copyright 2012 impress-console contributors (see README.txt)
  *
- *  version: 1.0b1
+ * version: 1.0b1
  * 
  */
 
