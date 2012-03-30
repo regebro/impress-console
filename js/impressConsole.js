@@ -59,6 +59,18 @@
         var root = document.getElementById( rootId );
         
         var consoleWindow = null;
+
+        var nextStep = function() {
+            var nextElement = document.querySelector('.active').nextElementSibling;
+            while (nextElement) {
+                if (nextElement.attributes['class'].value.indexOf('step') !== -1) {
+                   return nextElement;
+                }
+                nextElement = nextElement.nextElementSibling;
+            }
+            // No next element. Pick the first
+            return document.querySelector('.step')
+        } 
         
         // Sync the notes to the step
         var onStepLeave = function(){
@@ -66,8 +78,7 @@
                 // Set notes to next steps notes.
                 // This may in certain cases be the wrong notes, as you may go through
                 // steps in arbitrary orders, for example backwards.
-                var nextSlideNo = parseInt(document.URL.substring(document.URL.search('/step-')+6), 10) + 1;
-                var newNotes = document.querySelector('#step-' + nextSlideNo + ' .notes');
+                var newNotes = nextStep().querySelector('.notes');
                 if (newNotes) {
                     newNotes = newNotes.innerHTML;
                 } else {
@@ -89,11 +100,11 @@
                     newNotes = 'No notes for this step';
                 }
                 consoleWindow.document.getElementById('notes').innerHTML = newNotes;
-            
+
+                // Set the views                
                 consoleWindow.document.getElementById('slideView').src = document.URL;
-                var nextSlideNo = parseInt(document.URL.substring(document.URL.search('/step-')+6), 10) + 1;
-                var nextSlide = document.URL.substring(0, document.URL.search('/step-')+6);
-                consoleWindow.document.getElementById('preView').src = nextSlide + nextSlideNo;
+                var baseURL = document.URL.substring(0, document.URL.search('#/'));
+                consoleWindow.document.getElementById('preView').src = baseURL + '#' + nextStep().id;
             }
         };
 
