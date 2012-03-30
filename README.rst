@@ -8,6 +8,10 @@ a clock and a resettable timer.
 This started as an update of David Souther's notes.js, but is now not longer
 recognizable as such, but some parts of his code remains.
 
+.. image:: https://github.com/regebro/impress-console/raw/master/screenshot_thumb.png
+   :align: right
+   :target: https://github.com/regebro/impress-console/raw/master/screenshot.png
+
 Usage
 =====
 
