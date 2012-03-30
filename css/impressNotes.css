@@ -15,7 +15,29 @@ div#console {
     height: 94%;
 }
 
-div#view {
+div#views {
+    float: left;
+    width: 16em;
+    margin-right: 1em;
+}
+
+div#blocker {
+    width: 16em;
+    height: 18em;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: blocker;
+}
+
+iframe#slideView {
+    width: 16em;
+    height: 12em;
+}
+
+iframe#preView {
+    width: 8em;
+    height: 6em;
 }
 
 div#controls {

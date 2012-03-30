@@ -22,7 +22,8 @@
         '<div id="console">' +
           '<div id="views">' +
             '<iframe id="slideView" scrolling="no"></iframe>' +
-            '<iframe id="preView" scrolling="no"></iframe>' +          
+            '<iframe id="preView" scrolling="no"></iframe>' +
+            '<div id="blocker"></div>' + 
           '</div>' +
           '<div id="notes"></div>' +
         '</div>' +
