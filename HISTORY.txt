@@ -6,6 +6,16 @@ HISTORY
 
 - The "pre-loading" of notes loaded the wrong notes.
 
+- Added key handlers in the console, so that navigation works even if the
+  console window has focus. Tab is not supported, as that will trigger 
+  the next slide also when you Alt-Tab in some browsers, which is extremely
+  annoying.
+  
+- The windows in the presenter console will now move in sync with the main
+  window (unless you move to a step before the previous one has finished
+  moving, in which case the presenter console will fall behind).
+  
+
 1.0b1 - 2012-03-30
 ------------------
 

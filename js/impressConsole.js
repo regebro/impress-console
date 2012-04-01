@@ -62,8 +62,10 @@
 
         var nextStep = function() {
             var nextElement = document.querySelector('.active').nextElementSibling;
+            var classes = "";
             while (nextElement) {
-                if (nextElement.attributes['class'].value.indexOf('step') !== -1) {
+                classes = nextElement.attributes['class'];
+                if (classes && classes.value.indexOf('step') !== -1) {
                    return nextElement;
                 }
                 nextElement = nextElement.nextElementSibling;
@@ -83,12 +85,27 @@
                     newNotes = 'No notes for this step';
                 }
                 consoleWindow.document.getElementById('notes').innerHTML = newNotes;
+
+                // Set the views                
+                var baseURL = document.URL.substring(0, document.URL.search('#/'));
+                consoleWindow.document.getElementById('slideView').src =  baseURL + '#' + document.querySelector('.active').id;
+                consoleWindow.document.getElementById('preView').src = baseURL + '#' + nextStep().id;
             }
         };
-
+    
         // Sync the previews to the step
         var onStepEnter = function(){
             if(consoleWindow) {
+                // We do everything here again, because if you stopped the previos step to
+                // early, the onstepleave trigger is not called for that step, so
+                // we need this to sync things.
+                var newNotes = document.querySelector('.active').querySelector('.notes');
+                if (newNotes) {
+                    newNotes = newNotes.innerHTML;
+                } else {
+                    newNotes = 'No notes for this step';
+                }
+                consoleWindow.document.getElementById('notes').innerHTML = newNotes;
                 // Set the views                
                 consoleWindow.document.getElementById('slideView').src = document.URL;
                 var baseURL = document.URL.substring(0, document.URL.search('#/'));
@@ -156,14 +173,13 @@
                 
                 // trigger impress action on keyup
                 consoleWindow.document.addEventListener("keyup", function ( event ) {
-                    if ( event.keyCode === 9 || ( event.keyCode >= 32 && event.keyCode <= 34 ) || (event.keyCode >= 37 && event.keyCode <= 40) ) {
+                    if ( ( event.keyCode >= 32 && event.keyCode <= 34 ) || (event.keyCode >= 37 && event.keyCode <= 40) ) {
                         switch( event.keyCode ) {
                             case 33: // pg up
                             case 37: // left
                             case 38: // up
                                      impress().prev();
                                      break;
-                            case 9:  // tab
                             case 32: // space
                             case 34: // pg down
                             case 39: // right
