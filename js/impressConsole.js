@@ -7,7 +7,7 @@
  *
  * Copyright 2012 impress-console contributors (see README.txt)
  *
- * version: 1.0b2-dev
+ * version: 1.0b2
  * 
  */
 

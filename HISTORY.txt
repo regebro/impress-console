@@ -1,7 +1,7 @@
 HISTORY
 =======
 
-1.0b2 - Unreleased
+1.0b2 - 2012-04-01
 ------------------
 
 - The "pre-loading" of notes loaded the wrong notes.
