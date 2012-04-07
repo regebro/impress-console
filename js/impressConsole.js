@@ -32,6 +32,7 @@
           '<div id="next"><a  href="#" onclick="impress().next(); return false;" />Next</a></div>' +
           '<div id="clock">00:00:00 AM</div>' +
           '<div id="timer" onclick="timerReset()">00m 00s</div>' +
+          '<div id="status">Loading</div>' +
         '</div>' +
         '</body></html>';
 
@@ -90,6 +91,8 @@
                 var baseURL = document.URL.substring(0, document.URL.search('#/'));
                 consoleWindow.document.getElementById('slideView').src =  baseURL + '#' + document.querySelector('.active').id;
                 consoleWindow.document.getElementById('preView').src = baseURL + '#' + nextStep().id;
+                
+               consoleWindow.document.getElementById('status').innerHTML = '<span style="color: red">Moving</span>';
             }
         };
     
@@ -110,6 +113,8 @@
                 consoleWindow.document.getElementById('slideView').src = document.URL;
                 var baseURL = document.URL.substring(0, document.URL.search('#/'));
                 consoleWindow.document.getElementById('preView').src = baseURL + '#' + nextStep().id;
+                
+                consoleWindow.document.getElementById('status').innerHTML = '<span style="color: green">Ready</span>';
             }
         };
 

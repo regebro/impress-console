@@ -53,14 +53,23 @@ div#next {
     float: right;
 }
 
+div#status {
+    margin-left: 2em;
+    margin-right: 2em;
+    text-align: center;
+    float: right;
+}
+
 div#clock {
     margin-left: 2em;
+    margin-right: 2em;
     text-align: center;
     float: left;
 }
 
 div#timer {
+    margin-left: 2em;
     margin-right: 2em;
     text-align: center;
-    float: right;
+    float: left;
 }

@@ -4,7 +4,7 @@ HISTORY
 1.0b3 - Unreleased
 ------------------
 
-- No changes yet.
+- Added a "Ready/Working" status flag.
 
 1.0b2 - 2012-04-01
 ------------------
