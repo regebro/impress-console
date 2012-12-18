@@ -17,7 +17,7 @@
     // This is the default template for the speaker console window
     var consoleTemplate = '<!DOCTYPE html>' + 
         '<html><head>' + 
-          '<link rel="stylesheet" type="text/css" media="screen" href="css/impressConsole.css">' +
+          '<link rel="stylesheet" type="text/css" media="screen" href="{{cssFile}}">' +
         '</head><body>' + 
         '<div id="console">' +
           '<div id="views">' +
@@ -147,7 +147,11 @@
             consoleWindow.document.getElementById('timer').firstChild.nodeValue = zeroPad(minutes) + 'm ' + zeroPad(seconds) + 's';
         }
 
-        var open = function() {
+        var open = function( cssFile ) {
+            if (cssFile === undefined) {
+               cssFile = "css/impressConsole.css";
+            }
+        
             if(top.isconsoleWindow){ 
                 return;
             }
@@ -159,7 +163,7 @@
                 // This sets the window location to the main window location, so css can be loaded:
                 consoleWindow.document.open();
                 // Write the template:
-                consoleWindow.document.write(consoleTemplate);
+                consoleWindow.document.write(consoleTemplate.replace("{{cssFile}}", cssFile));
                 consoleWindow.document.title = 'Speaker Console (' + document.title + ')';
                 consoleWindow.impress = window.impress;
                 // We set this flag so we can detect it later, to prevent infinite popups.
@@ -209,6 +213,7 @@
         };
         
         var init = function() {
+        
             // Register the event
             root.addEventListener('impress:stepleave', onStepLeave)
             root.addEventListener('impress:stepenter', onStepEnter)
@@ -233,4 +238,3 @@
     }
     
 })(document, window);
-

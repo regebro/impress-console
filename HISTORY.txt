@@ -6,6 +6,12 @@ HISTORY
 
 - Added a "Ready/Working" status flag.
 
+- The open() call now takes a parameter, cssFile, so you can specify another
+  css-file used for the console. This is primarily used so that you can have 
+  so you can include impress-console in tools and themes with more freedom.
+
+- Made the default font-size smaller, as I tended to have to zoom out.
+
 1.0b2 - 2012-04-01
 ------------------
 
