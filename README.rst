@@ -12,6 +12,7 @@ a clock and a resettable timer.
 This started as an update of David Souther's notes.js, but is now not longer
 recognizable as such, but some parts of his code may remain.
 
+
 Usage
 =====
 
@@ -44,6 +45,7 @@ All in all, the impress.js initialization at the end of the file hence should lo
 
 The timer at the bottom of the screen starts automatically, and will reset if you click on it.
 
+
 Advanced Usage
 ==============
 
@@ -51,6 +53,20 @@ The default css file location is ``css/impressConsole.css``, but you can now pas
 ``init()`` to change this::
 
     console().init(css="/path/to/my.css");
+    
+You can now also easily register extra key-events with the
+``registerKeyEvent()`` function. This is just a convenience method, but it is
+convenient. The function takes three parameters, of which the last one is
+optional, the first is a list of key values that should trigger the event,
+the second is the function that should be called, and the third is the window
+the even should be bound to. This defaults to the console window.
+
+This code will make the <N> key (value 78) call the showSlideNumbers function for
+both the console window and the main window::
+
+      console().registerKeyEvent([78], showSlideNumbers)
+      console().registerKeyEvent([78], showSlideNumbers, window)
+
 
 Credits
 =======

@@ -15,6 +15,11 @@ HISTORY
 - Changed the key to open the console from <N> to <P>, because Landslide uses
   <N> to toggle slide numbers.
 
+- Improved key-handling (with inspiration from Landslide, once again) so that
+  modified key-presses doesn't trigger slide changes in the console-window.
+  
+- Added a registerKeyEvent convenience function.
+
 1.0b2 - 2012-04-01
 ------------------
 
