@@ -36,21 +36,52 @@
         '</div>' +
         '</body></html>';
 
+    // Default css location
+    var cssFile = "css/impressConsole.css";
+    
     // All console windows, so that you can call console() repeatedly.
     var allConsoles = {};
     
     var useAMPM = false;
     
     // Zero padding helper function:
-    function zeroPad(i) {
+    var zeroPad = function(i) {
         return (i < 10 ? '0' : '') + i
     }
     
+    // Key event function helpers (from Landslide)
+    var modifierKeyDown = false;
+    
+    var isModifierKey = function(keyCode) {
+        switch (keyCode) {
+            case 16: // shift
+            case 17: // ctrl
+            case 18: // alt
+            case 91: // command
+                return true;
+                break;
+            default:
+                return false;
+                break;
+        }
+    };
+
+    var checkModifierKeyUp = function(event) {
+        if (isModifierKey(event.keyCode)) {
+            modifierKeyDown = false;
+        }
+    };
+
+    var checkModifierKeyDown = function(event) {
+        if (isModifierKey(event.keyCode)) {
+            modifierKeyDown = true;
+        }
+    };
 
     // The console object
     var console = window.console = function (rootId) {
 
-        rootId = rootId || 'impress';
+        rootId = rootId || 'impress';        
         
         if (allConsoles[rootId]) {
             return allConsoles[rootId];
@@ -58,7 +89,7 @@
         
         // root presentation elements
         var root = document.getElementById( rootId );
-        
+
         var consoleWindow = null;
 
         var nextStep = function() {
@@ -147,11 +178,28 @@
             consoleWindow.document.getElementById('timer').firstChild.nodeValue = zeroPad(minutes) + 'm ' + zeroPad(seconds) + 's';
         }
 
-        var open = function( cssFile ) {
-            if (cssFile === undefined) {
-               cssFile = "css/impressConsole.css";
+        var registerKeyEvent = function(keyCodes, handler, window) {
+            if (window === undefined) {
+                window = consoleWindow;
             }
-        
+            
+            // prevent default keydown action when one of supported key is pressed
+            window.document.addEventListener("keydown", function ( event ) {
+                if ( keyCodes.indexOf(event.keyCode) != -1 && !modifierKeyDown) {
+                    event.preventDefault();
+                }
+            }, false);
+                    
+                // trigger impress action on keyup
+            window.document.addEventListener("keyup", function ( event ) {
+                if ( keyCodes.indexOf(event.keyCode) != -1 && !modifierKeyDown) {
+                        handler();
+                        event.preventDefault();
+                }
+            }, false);
+        };
+    
+        var open = function() {
             if(top.isconsoleWindow){ 
                 return;
             }
@@ -172,34 +220,15 @@
                 consoleWindow.timerStart = new Date();
                 consoleWindow.timerReset = timerReset;
                 consoleWindow.clockInterval = setInterval('console("' + rootId + '").clockTick()', 1000 );
-                // keyboard navigation handlers
-                // prevent default keydown action when one of supported key is pressed
-                consoleWindow.document.addEventListener("keydown", function ( event ) {
-                    if ( event.keyCode === 9 || ( event.keyCode >= 32 && event.keyCode <= 34 ) || (event.keyCode >= 37 && event.keyCode <= 40) ) {
-                        event.preventDefault();
-                    }
-                }, false);
                 
-                // trigger impress action on keyup
-                consoleWindow.document.addEventListener("keyup", function ( event ) {
-                    if ( ( event.keyCode >= 32 && event.keyCode <= 34 ) || (event.keyCode >= 37 && event.keyCode <= 40) ) {
-                        switch( event.keyCode ) {
-                            case 33: // pg up
-                            case 37: // left
-                            case 38: // up
-                                     impress().prev();
-                                     break;
-                            case 32: // space
-                            case 34: // pg down
-                            case 39: // right
-                            case 40: // down
-                                     impress().next();
-                                     break;
-                        }
-                        
-                        event.preventDefault();
-                    }
-                }, false);
+                // keyboard navigation handlers
+                consoleWindow.addEventListener('keyup', checkModifierKeyUp, false);
+                consoleWindow.addEventListener('keydown', checkModifierKeyDown, false);
+
+                // 33: pg up, 37: left, 38: up
+                registerKeyEvent([33, 37, 38], impress().prev);
+                // 32: space, 34: pg down, 39: right, 40: down
+                registerKeyEvent([32, 34, 39, 40], impress().next);
                 
                 // Cleanup
                 consoleWindow.onbeforeunload = function() {
@@ -209,11 +238,15 @@
                 // Show the current slide
                 onStepLeave();
                 onStepEnter();
+                consoleWindow.document.close();
             }
         };
         
-        var init = function() {
-        
+        var init = function(css) {
+            if (css !== undefined) {
+                cssFile = css;
+            }
+
             // Register the event
             root.addEventListener('impress:stepleave', onStepLeave)
             root.addEventListener('impress:stepenter', onStepEnter)
@@ -223,17 +256,12 @@
                 consoleWindow && !consoleWindow.closed && consoleWindow.close();
             };
             
-            //Open speaker console when they press 'n'
-            document.addEventListener('keyup', function ( event ) {
-                if ( event.keyCode === 78 ) {
-                    open();
-                }
-            }, false);
-            
+            //Open speaker console when they press 'p'
+            registerKeyEvent([80], open, window);
         }
                 
         // Return the object        
-        return allConsoles[rootId] = {init: init, open: open, clockTick: clockTick}
+        return allConsoles[rootId] = {init: init, open: open, clockTick: clockTick, registerKeyEvent: registerKeyEvent}
         
     }
     

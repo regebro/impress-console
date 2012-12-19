@@ -10,7 +10,7 @@ a small view of the current slide, a preview of the next slide in order,
 a clock and a resettable timer.
 
 This started as an update of David Souther's notes.js, but is now not longer
-recognizable as such, but some parts of his code remains.
+recognizable as such, but some parts of his code may remain.
 
 Usage
 =====
@@ -25,9 +25,9 @@ Then add the following to the bottom of your presentation HTML::
     
 And add this to the script where you call impress.init()::
 
-      notes().init();
+    notes().init();
 
-You can then open the speaker window with the N key. You can also open it automatically with::
+You can then open the speaker window with the <P> key. You can also open it automatically with::
 
     notes().open();
 
@@ -44,6 +44,13 @@ All in all, the impress.js initialization at the end of the file hence should lo
 
 The timer at the bottom of the screen starts automatically, and will reset if you click on it.
 
+Advanced Usage
+==============
+
+The default css file location is ``css/impressConsole.css``, but you can now pass in a css parameter to
+``init()`` to change this::
+
+    console().init(css="/path/to/my.css");
 
 Credits
 =======

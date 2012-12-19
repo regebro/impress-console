@@ -1,16 +1,19 @@
 HISTORY
 =======
 
-1.0b3 - Unreleased
+1.0 - Unreleased
 ------------------
 
 - Added a "Ready/Working" status flag.
 
-- The open() call now takes a parameter, cssFile, so you can specify another
+- The open() call now takes a parameter, css, so you can specify another
   css-file used for the console. This is primarily used so that you can have 
   so you can include impress-console in tools and themes with more freedom.
 
 - Made the default font-size smaller, as I tended to have to zoom out.
+
+- Changed the key to open the console from <N> to <P>, because Landslide uses
+  <N> to toggle slide numbers.
 
 1.0b2 - 2012-04-01
 ------------------
