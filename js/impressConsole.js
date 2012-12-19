@@ -7,7 +7,7 @@
  *
  * Copyright 2012 impress-console contributors (see README.txt)
  *
- * version: 1.0b3-dev
+ * version: 1.0-dev
  * 
  */
 
@@ -91,10 +91,19 @@
 
                 // Set the views                
                 var baseURL = document.URL.substring(0, document.URL.search('#/'));
-                consoleWindow.document.getElementById('slideView').src =  baseURL + '#' + document.querySelector('.active').id;
-                consoleWindow.document.getElementById('preView').src = baseURL + '#' + nextStep().id;
+                var slideSrc = baseURL + '#' + document.querySelector('.active').id;
+                var preSrc = baseURL + '#' + nextStep().id;
+                var slideView = consoleWindow.document.getElementById('slideView');
+                // Setting them when they are already set causes glithes in firexof, so we check first:
+                if (slideView.src !== slideSrc) {
+                    slideView.src = slideSrc;
+                }
+                var preView = consoleWindow.document.getElementById('preView');
+                if (preView.src !== preSrc) {
+                    preView.src = preSrc;
+                }
                 
-               consoleWindow.document.getElementById('status').innerHTML = '<span style="color: red">Moving</span>';
+                consoleWindow.document.getElementById('status').innerHTML = '<span style="color: red">Moving</span>';
             }
         };
     
@@ -110,16 +119,37 @@
                 } else {
                     newNotes = 'No notes for this step';
                 }
-                consoleWindow.document.getElementById('notes').innerHTML = newNotes;
-                // Set the views                
-                consoleWindow.document.getElementById('slideView').src = document.URL;
+                var notes = consoleWindow.document.getElementById('notes');
+                notes.innerHTML = newNotes;
+                notes.scrollTop = 0;
+                
+                // Set the views
                 var baseURL = document.URL.substring(0, document.URL.search('#/'));
-                consoleWindow.document.getElementById('preView').src = baseURL + '#' + nextStep().id;
+                var slideSrc = baseURL + '#' + document.querySelector('.active').id;
+                var preSrc = baseURL + '#' + nextStep().id;
+                var slideView = consoleWindow.document.getElementById('slideView');
+                // Setting them when they are already set causes glithes in firexof, so we check first:
+                if (slideView.src !== slideSrc) {
+                    slideView.src = slideSrc;
+                }
+                var preView = consoleWindow.document.getElementById('preView');
+                if (preView.src !== preSrc) {
+                    preView.src = preSrc;
+                }
                 
                 consoleWindow.document.getElementById('status').innerHTML = '<span style="color: green">Ready</span>';
             }
         };
 
+        var spaceHandler = function () {
+            var notes = consoleWindow.document.getElementById('notes');
+            if (notes.scrollTopMax - notes.scrollTop > 20) {
+               notes.scrollTop = notes.scrollTop + notes.clientHeight * 0.8;
+            } else {
+               impress().next();
+            }
+        }
+        
         var timerReset = function () {
             consoleWindow.timerStart = new Date();
         }
@@ -195,8 +225,10 @@
                 // keyboard navigation handlers
                 // 33: pg up, 37: left, 38: up
                 registerKeyEvent([33, 37, 38], impress().prev);
-                // 32: space, 34: pg down, 39: right, 40: down
-                registerKeyEvent([32, 34, 39, 40], impress().next);
+                // 34: pg down, 39: right, 40: down
+                registerKeyEvent([34, 39, 40], impress().next);
+                // 32: space
+                registerKeyEvent([32], spaceHandler);
                 
                 // Cleanup
                 consoleWindow.onbeforeunload = function() {

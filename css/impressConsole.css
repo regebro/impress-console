@@ -22,12 +22,22 @@ div#views {
 }
 
 div#blocker {
-    width: 16em;
-    height: 18em;
+    width: 17em;
+    height: 20em;
     position: absolute;
     top: 0;
     left: 0;
     display: blocker;
+}
+
+div#notes {
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 95%;
+}
+
+div#notes p {
+    margin-top: 0;
 }
 
 iframe#slideView {

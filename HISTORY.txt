@@ -20,6 +20,15 @@ HISTORY
   
 - Added a registerKeyEvent convenience function.
 
+- Better behavior on Firefox.
+
+- <space> is now the default mover to "next". If there is more text that can
+  be displayed in the notes-window, <space> will scroll down. Otherwise it
+  will move to the next slide.
+
+- The iframe blocker didn't actually block all of the iframes.
+
+
 1.0b2 - 2012-04-01
 ------------------
 
