@@ -56,7 +56,7 @@ unless there is more text in the Notes window than can be displayed without
 scrolling. If there is, it will instead scroll down one page.
 
 <right>, <down> and <page down> will move to the next slide, even when the
-<text needs scrolling. left>, <up> and <page up> will move to the previous
+text needs scrolling. <left>, <up> and <page up> will move to the previous
 <slide.
 
 The preview is based on the assumption that the presentation is linear and
