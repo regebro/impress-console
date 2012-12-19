@@ -5,9 +5,9 @@ impress-console
    :align: right
    :target: https://github.com/regebro/impress-console/raw/master/screenshot.png
 
-This module provides a speaker console for impress.js. It shows speaker notes,
-a small view of the current slide, a preview of the next slide in order,
-a clock and a resettable timer.
+This module provides a speaker console for impress.js. It shows speaker
+notes, a small view of the current slide, a preview of the next slide in
+order, a clock and a resettable timer.
 
 This started as an update of David Souther's notes.js, but is now not longer
 recognizable as such, but some parts of his code may remain.
@@ -16,8 +16,8 @@ recognizable as such, but some parts of his code may remain.
 Usage
 =====
 
-To use it put impressConsole.js in the js directory under your presentation, and
-put impressConsole.css in the css directory under your presentation. The
+To use it put impressConsole.js in the js directory under your presentation,
+and put impressConsole.css in the css directory under your presentation. The
 console will look for css/impressConsole.css, so you need to locate it there.
 
 Then add the following to the bottom of your presentation HTML::
@@ -28,12 +28,14 @@ And add this to the script where you call impress.init()::
 
     notes().init();
 
-You can then open the speaker window with the <P> key. You can also open it automatically with::
+You can then open the speaker window with the <P> key. You can also open it
+automatically with::
 
     notes().open();
 
 
-All in all, the impress.js initialization at the end of the file hence should look something like this::
+All in all, the impress.js initialization at the end of the file hence should
+look something like this::
 
     <script src="js/impress.js"></script>
     <script src="js/impressConsole.js"></script>
@@ -43,14 +45,31 @@ All in all, the impress.js initialization at the end of the file hence should lo
         console().open(); // If you want them to open automatically
     </script>
 
-The timer at the bottom of the screen starts automatically, and will reset if you click on it.
+The timer at the bottom of the screen starts automatically, and will reset if
+you click on it.
+
+Navigation
+==========
+
+The main key to move "forward" is <space>. It will move to the next slide,
+unless there is more text in the Notes window than can be displayed without
+scrolling. If there is, it will instead scroll down one page.
+
+<right>, <down> and <page down> will move to the next slide, even when the
+<text needs scrolling. left>, <up> and <page up> will move to the previous
+<slide.
+
+The preview is based on the assumption that the presentation is linear and
+that the next slide is well, the next slide. If it isn't and you move around
+the presentation by clicking with the mouse, then the preview will not be
+very useful, for obvious reasons.
 
 
 Advanced Usage
 ==============
 
-The default css file location is ``css/impressConsole.css``, but you can now pass in a css parameter to
-``init()`` to change this::
+The default css file location is ``css/impressConsole.css``, but you can now
+pass in a css parameter to ``init()`` to change this::
 
     console().init(css="/path/to/my.css");
     
@@ -61,8 +80,8 @@ optional, the first is a list of key values that should trigger the event,
 the second is the function that should be called, and the third is the window
 the even should be bound to. This defaults to the console window.
 
-This code will make the <N> key (value 78) call the showSlideNumbers function for
-both the console window and the main window::
+This code will make the <N> key (value 78) call the showSlideNumbers function
+for both the console window and the main window::
 
       console().registerKeyEvent([78], showSlideNumbers)
       console().registerKeyEvent([78], showSlideNumbers, window)
