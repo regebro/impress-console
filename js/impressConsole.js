@@ -49,35 +49,6 @@
         return (i < 10 ? '0' : '') + i
     }
     
-    // Key event function helpers (from Landslide)
-    var modifierKeyDown = false;
-    
-    var isModifierKey = function(keyCode) {
-        switch (keyCode) {
-            case 16: // shift
-            case 17: // ctrl
-            case 18: // alt
-            case 91: // command
-                return true;
-                break;
-            default:
-                return false;
-                break;
-        }
-    };
-
-    var checkModifierKeyUp = function(event) {
-        if (isModifierKey(event.keyCode)) {
-            modifierKeyDown = false;
-        }
-    };
-
-    var checkModifierKeyDown = function(event) {
-        if (isModifierKey(event.keyCode)) {
-            modifierKeyDown = true;
-        }
-    };
-
     // The console object
     var console = window.console = function (rootId) {
 
@@ -185,14 +156,14 @@
             
             // prevent default keydown action when one of supported key is pressed
             window.document.addEventListener("keydown", function ( event ) {
-                if ( keyCodes.indexOf(event.keyCode) != -1 && !modifierKeyDown) {
+                if ( !event.ctrlKey && !event.altKey && !event.shiftKey && !event.metaKey && keyCodes.indexOf(event.keyCode) != -1) {
                     event.preventDefault();
                 }
             }, false);
                     
                 // trigger impress action on keyup
             window.document.addEventListener("keyup", function ( event ) {
-                if ( keyCodes.indexOf(event.keyCode) != -1 && !modifierKeyDown) {
+                if ( !event.ctrlKey && !event.altKey && !event.shiftKey && !event.metaKey && keyCodes.indexOf(event.keyCode) != -1) {
                         handler();
                         event.preventDefault();
                 }
@@ -222,9 +193,6 @@
                 consoleWindow.clockInterval = setInterval('console("' + rootId + '").clockTick()', 1000 );
                 
                 // keyboard navigation handlers
-                consoleWindow.addEventListener('keyup', checkModifierKeyUp, false);
-                consoleWindow.addEventListener('keydown', checkModifierKeyDown, false);
-
                 // 33: pg up, 37: left, 38: up
                 registerKeyEvent([33, 37, 38], impress().prev);
                 // 32: space, 34: pg down, 39: right, 40: down
