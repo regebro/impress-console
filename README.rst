@@ -48,6 +48,16 @@ look something like this::
 The timer at the bottom of the screen starts automatically, and will reset if
 you click on it.
 
+
+Adding notes
+============
+
+You add presenter notes to your impress.js presentation by simply
+adding a <div class="notes">The notes go here</div> to any
+step/slide that you want to have notes. The contents of that <div>
+will be picked up by the console.
+
+
 Navigation
 ==========
 
