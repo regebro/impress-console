@@ -5,9 +5,9 @@
  *
  * MIT Licensed, see license.txt.
  *
- * Copyright 2012 impress-console contributors (see README.txt)
+ * Copyright 2012, 2013 impress-console contributors (see README.txt)
  *
- * version: 1.1
+ * version: 1.2-dev
  * 
  */
 
@@ -94,7 +94,7 @@
                 var slideSrc = baseURL + '#' + document.querySelector('.active').id;
                 var preSrc = baseURL + '#' + nextStep().id;
                 var slideView = consoleWindow.document.getElementById('slideView');
-                // Setting them when they are already set causes glithes in firexof, so we check first:
+                // Setting them when they are already set causes glithes in Firefox, so we check first:
                 if (slideView.src !== slideSrc) {
                     slideView.src = slideSrc;
                 }
@@ -128,7 +128,7 @@
                 var slideSrc = baseURL + '#' + document.querySelector('.active').id;
                 var preSrc = baseURL + '#' + nextStep().id;
                 var slideView = consoleWindow.document.getElementById('slideView');
-                // Setting them when they are already set causes glithes in firexof, so we check first:
+                // Setting them when they are already set causes glithes in Firefox, so we check first:
                 if (slideView.src !== slideSrc) {
                     slideView.src = slideSrc;
                 }
