@@ -22,16 +22,16 @@ console will look for css/impressConsole.css, so you need to locate it there.
 
 Then add the following to the bottom of your presentation HTML::
 
-    <script src="js/impressNotes.js"></script>
+    <script src="js/impressConsole.js"></script>
     
 And add this to the script where you call impress.init()::
 
-    notes().init();
+    console().init();
 
 You can then open the speaker window with the <P> key. You can also open it
 automatically with::
 
-    notes().open();
+    console().open();
 
 
 All in all, the impress.js initialization at the end of the file hence should
