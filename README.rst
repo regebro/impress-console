@@ -41,8 +41,8 @@ look something like this::
     <script src="js/impressConsole.js"></script>
     <script>
         impress().init();
-        console().init();
-        console().open(); // If you want them to open automatically
+        impressConsole().init();
+        impressConsole().open(); // If you want them to open automatically
     </script>
 
 The timer at the bottom of the screen starts automatically, and will reset if
@@ -81,7 +81,7 @@ Advanced Usage
 The default css file location is ``css/impressConsole.css``, but you can now
 pass in a css parameter to ``init()`` to change this::
 
-    console().init(css="/path/to/my.css");
+    impressConsole().init(css="/path/to/my.css");
     
 You can now also easily register extra key-events with the
 ``registerKeyEvent()`` function. This is just a convenience method, but it is
@@ -93,8 +93,8 @@ the even should be bound to. This defaults to the console window.
 This code will make the <N> key (value 78) call the showSlideNumbers function
 for both the console window and the main window::
 
-      console().registerKeyEvent([78], showSlideNumbers)
-      console().registerKeyEvent([78], showSlideNumbers, window)
+      impressConsole().registerKeyEvent([78], showSlideNumbers)
+      impressConsole().registerKeyEvent([78], showSlideNumbers, window)
 
 
 Credits

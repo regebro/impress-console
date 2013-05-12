@@ -1,6 +1,13 @@
 HISTORY
 =======
 
+1.2 - Unreleased
+----------------
+
+- Using the name "console" for the console cause a name conflict. It has been
+  renamed to "impressConsole".
+  
+
 1.1 - 2013-02-19
 ----------------
 

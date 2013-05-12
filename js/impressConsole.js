@@ -39,7 +39,7 @@
     // Default css location
     var cssFile = "css/impressConsole.css";
     
-    // All console windows, so that you can call console() repeatedly.
+    // All console windows, so that you can call impressConsole() repeatedly.
     var allConsoles = {};
     
     var useAMPM = false;
@@ -50,7 +50,7 @@
     };
     
     // The console object
-    var console = window.console = function (rootId) {
+    var impressConsole = window.impressConsole = function (rootId) {
 
         rootId = rootId || 'impress';
         
@@ -227,7 +227,7 @@
                 // Add clock tick
                 consoleWindow.timerStart = new Date();
                 consoleWindow.timerReset = timerReset;
-                consoleWindow.clockInterval = setInterval('console("' + rootId + '").clockTick()', 1000 );
+                consoleWindow.clockInterval = setInterval('impressConsole("' + rootId + '").clockTick()', 1000 );
                 
                 // keyboard navigation handlers
                 // 33: pg up, 37: left, 38: up
