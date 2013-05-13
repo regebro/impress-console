@@ -26,12 +26,12 @@ Then add the following to the bottom of your presentation HTML::
     
 And add this to the script where you call impress.init()::
 
-    console().init();
+    impressConsole().init();
 
 You can then open the speaker window with the <P> key. You can also open it
 automatically with::
 
-    console().open();
+    impressConsole().open();
 
 
 All in all, the impress.js initialization at the end of the file hence should
