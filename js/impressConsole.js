@@ -206,6 +206,15 @@
                 }
             }, false);
         };
+        
+        var consoleOnLoad = function() {
+        
+            var slideView = consoleWindow.document.getElementById('slideView');
+            var preView = consoleWindow.document.getElementById('preView');
+
+            slideView.contentDocument.body.classList.add('impressConsole');
+            preView.contentDocument.body.classList.add('impressConsole');
+        };        
     
         var open = function() {
             if(top.isconsoleWindow){ 
@@ -224,6 +233,8 @@
                 consoleWindow.impress = window.impress;
                 // We set this flag so we can detect it later, to prevent infinite popups.
                 consoleWindow.isconsoleWindow = true;
+                // Set the onload function:
+                consoleWindow.onload = consoleOnLoad;
                 // Add clock tick
                 consoleWindow.timerStart = new Date();
                 consoleWindow.timerReset = timerReset;
