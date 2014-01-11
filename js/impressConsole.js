@@ -208,12 +208,16 @@
         };
         
         var consoleOnLoad = function() {
-        
-            var slideView = consoleWindow.document.getElementById('slideView');
-            var preView = consoleWindow.document.getElementById('preView');
+	        var slideView = consoleWindow.document.getElementById('slideView');
+	        var preView = consoleWindow.document.getElementById('preView');
 
-            slideView.contentDocument.body.classList.add('impressConsole');
-            preView.contentDocument.body.classList.add('impressConsole');
+	        slideView.addEventListener('load', function() {
+		        slideView.contentDocument.body.classList.add('impress-console');
+	        });
+
+	        preView.addEventListener('load', function() {
+		        preView.contentDocument.body.classList.add('impress-console');
+	        });
         };        
     
         var open = function() {
