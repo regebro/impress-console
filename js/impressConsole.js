@@ -211,10 +211,14 @@
 	        var slideView = consoleWindow.document.getElementById('slideView');
 	        var preView = consoleWindow.document.getElementById('preView');
 
+		// Firefox:
+		slideView.contentDocument.body.classList.add('impress-console');
+		preView.contentDocument.body.classList.add('impress-console');
+		
+		// Chrome:
 	        slideView.addEventListener('load', function() {
 		        slideView.contentDocument.body.classList.add('impress-console');
 	        });
-
 	        preView.addEventListener('load', function() {
 		        preView.contentDocument.body.classList.add('impress-console');
 	        });
