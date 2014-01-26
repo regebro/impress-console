@@ -7,6 +7,9 @@ HISTORY
 - Using the name "console" for the console cause a name conflict. It has been
   renamed to "impressConsole".
   
+- Added a 'impress-console' css style to the preview windows, so you can style
+  the previews separately, for example disabling transitions.
+  
 
 1.1 - 2013-02-19
 ----------------
