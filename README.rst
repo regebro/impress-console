@@ -12,6 +12,8 @@ order, a clock and a resettable timer.
 This started as an update of David Souther's notes.js, but is now not longer
 recognizable as such, but some parts of his code may remain.
 
+It can be seen in action at http://regebro.github.io/hovercraft/
+
 
 Usage
 =====
