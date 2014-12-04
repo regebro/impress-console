@@ -59,6 +59,13 @@ adding a <div class="notes">The notes go here</div> to any
 step/slide that you want to have notes. The contents of that <div>
 will be picked up by the console.
 
+You will also need to hide these notes with CSS in the main presentation. 
+You can for example include the following rule in your CSS::
+
+   .step .notes {
+     display: none;
+   }
+
 
 Navigation
 ==========
