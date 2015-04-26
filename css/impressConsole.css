@@ -1,58 +1,100 @@
-html {
-    height: 100%
-}
-
 body {
+    background-color: rgb(200,200,200);
     padding: 0;
-    margin: 20px;
+    margin: 0;
     font-family: verdana, arial, sans-serif;
-    font-size: 26px;
-    height: 92%;
+    font-size: 2vw;
 }
 
 div#console {
+    position: absolute;
+    top: 0.5vw;
+    left: 0.5vw;
+    right: 0.5vw;
+    bottom: 3vw;
     margin: 0;
-    height: 94%;
 }
 
+div#views, div#notes {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 49vw;
+}
 div#views {
-    float: left;
-    width: 16em;
-    margin-right: 1em;
+    left: 0;
+    overflow: hidden;
 }
 
 div#blocker {
-    width: 17em;
-    height: 20em;
     position: absolute;
-    top: 0;
-    left: 0;
-    display: blocker;
+    right: 0;
+    bottom: 0;
 }
 
 div#notes {
+    right: 0;
+    background-color: #fff;
     overflow-x: hidden;
     overflow-y: auto;
-    height: 95%;
+    padding: 0.3ex;
+}
+
+div#notes .noNotes {
+    color: rgb(200, 200, 200);
 }
 
 div#notes p {
     margin-top: 0;
 }
 
+iframe {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    border: none;
+    left: 0;
+}
+
 iframe#slideView {
-    width: 16em;
-    height: 12em;
+    top: 0;
+    width:49vw;
+    height:49vh;
 }
 
 iframe#preView {
-    width: 8em;
-    height: 6em;
+    opacity: 0.7; 
+    top: 50vh;
+    width:30vw;
+    height:30vh;
 }
 
 div#controls {
     margin: 0;
-    height: 6%;
+    position: absolute;
+    bottom: 0.25vw;
+    left: 0.5vw;
+    right: 0.5vw;
+    height: 2.5vw;
+    background-color: rgba(200, 200, 200, 0.6);
+}
+
+div#prev, div#next {
+}
+
+div#prev a, div#next a {
+    display:block;
+    border: solid 1px rgb(70, 70, 70);
+    border-radius: 0.5vw;
+    font-size: 1.5vw;
+    padding: 0.25vw;
+    text-decoration: none;
+    background-color: rgb(220, 220, 220);
+    color: rgb(0, 0, 0);
+}
+
+div#prev a:hover, div#next a:hover {
+    background-color: rgb(255, 255, 255);
 }
 
 div#prev {
