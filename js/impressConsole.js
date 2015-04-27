@@ -155,7 +155,7 @@
                     preView.src = preSrc;
                 }
                 
-                consoleWindow.document.getElementById('status').innerHTML = '<span style="color: red">' + lang.moving + '</span>';
+                consoleWindow.document.getElementById('status').innerHTML = '<span class="moving">' + lang.moving + '</span>';
             }
         };
     
@@ -189,7 +189,7 @@
                     preView.src = preSrc;
                 }
                 
-                consoleWindow.document.getElementById('status').innerHTML = '<span style="color: green">' + lang.ready + '</span>';
+                consoleWindow.document.getElementById('status').innerHTML = '<span  class="ready">' + lang.ready + '</span>';
             }
         };
 
@@ -356,8 +356,12 @@
             // get size available for views
             var views = consoleWindow.document.getElementById('views');
 
+            // slideView may have a border or some padding:
+            // asuming same border width on both direktions
+            var delta = slideView.offsetWidth - slideView.clientWidth;
+
             // set views 
-            var slideViewWidth = views.clientWidth;
+            var slideViewWidth = (views.clientWidth - delta);
             var slideViewHeight = Math.floor(slideViewWidth * ratio);
 
             var preViewTop = slideViewHeight + preViewGap;
@@ -365,21 +369,22 @@
             var preViewWidth = Math.floor(slideViewWidth * preViewDefaultFactor);
             var preViewHeight = Math.floor(slideViewHeight * preViewDefaultFactor);
 
+
             // shrink preview to fit into space available
-            if (views.clientHeight < preViewTop + preViewHeight) {
-                preViewHeight = views.clientHeight - preViewTop;
+            if (views.clientHeight - delta < preViewTop + preViewHeight) {
+                preViewHeight = views.clientHeight - delta - preViewTop;
                 preViewWidth = Math.floor(preViewHeight / ratio);
             }
 
             // if preview is not high enough forget ratios!
             if (preViewWidth <= Math.floor(slideViewWidth * preViewMinimumFactor)) {
-                slideViewWidth = views.clientWidth;
-                slideViewHeight = Math.floor((views.clientHeight - preViewGap) / (1 + preViewMinimumFactor));
+                slideViewWidth = (views.clientWidth - delta);
+                slideViewHeight = Math.floor((views.clientHeight - delta - preViewGap) / (1 + preViewMinimumFactor));
 
                 preViewTop = slideViewHeight + preViewGap;
 
                 preViewWidth = Math.floor(slideViewWidth * preViewMinimumFactor);
-                preViewHeight = views.clientHeight - preViewTop;
+                preViewHeight = views.clientHeight - delta - preViewTop;
             }
 
             // set the calculated into styles

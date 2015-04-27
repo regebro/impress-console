@@ -1,12 +1,12 @@
-body {
-    background-color: rgb(200,200,200);
+#impressconsole body {
+    background-color: rgb(255, 255, 255);
     padding: 0;
     margin: 0;
     font-family: verdana, arial, sans-serif;
     font-size: 2vw;
 }
 
-div#console {
+#impressconsole div#console {
     position: absolute;
     top: 0.5vw;
     left: 0.5vw;
@@ -15,75 +15,79 @@ div#console {
     margin: 0;
 }
 
-div#views, div#notes {
+#impressconsole div#views, #impressconsole div#notes {
     position: absolute;
     top: 0;
     bottom: 0;
-    width: 49vw;
 }
-div#views {
+
+#impressconsole div#views {
     left: 0;
+    right: 50vw;
     overflow: hidden;
 }
 
-div#blocker {
+#impressconsole div#blocker {
     position: absolute;
     right: 0;
     bottom: 0;
 }
 
-div#notes {
+#impressconsole div#notes {
+    left: 50vw;
     right: 0;
-    background-color: #fff;
     overflow-x: hidden;
     overflow-y: auto;
     padding: 0.3ex;
+    background-color: rgb(255, 255, 255);
+    border: solid 1px rgb(120, 120, 120);
 }
 
-div#notes .noNotes {
+#impressconsole div#notes .noNotes {
     color: rgb(200, 200, 200);
 }
 
-div#notes p {
+#impressconsole div#notes p {
     margin-top: 0;
 }
 
-iframe {
+#impressconsole iframe {
     position: absolute;
     margin: 0;
     padding: 0;
-    border: none;
     left: 0;
+    border: solid 1px rgb(120, 120, 120);
 }
 
-iframe#slideView {
+#impressconsole iframe#slideView {
     top: 0;
-    width:49vw;
-    height:49vh;
+    width: 49vw;
+    height: 49vh;
 }
 
-iframe#preView {
+#impressconsole iframe#preView {
     opacity: 0.7; 
     top: 50vh;
-    width:30vw;
-    height:30vh;
+    width: 30vw;
+    height: 30vh;
 }
 
-div#controls {
+#impressconsole div#controls {
     margin: 0;
     position: absolute;
     bottom: 0.25vw;
     left: 0.5vw;
     right: 0.5vw;
     height: 2.5vw;
-    background-color: rgba(200, 200, 200, 0.6);
+    background-color: rgb(255, 255, 255);
+    background-color: rgba(255, 255, 255, 0.6);
 }
 
-div#prev, div#next {
+#impressconsole div#prev, div#next {
 }
 
-div#prev a, div#next a {
-    display:block;
+#impressconsole div#prev a, #impressconsole div#next a {
+    display: block;
     border: solid 1px rgb(70, 70, 70);
     border-radius: 0.5vw;
     font-size: 1.5vw;
@@ -93,35 +97,43 @@ div#prev a, div#next a {
     color: rgb(0, 0, 0);
 }
 
-div#prev a:hover, div#next a:hover {
-    background-color: rgb(255, 255, 255);
+#impressconsole div#prev a:hover, #impressconsole div#next a:hover {
+    background-color: rgb(245, 245, 245);
 }
 
-div#prev {
+#impressconsole div#prev {
     float: left;
 }
 
-div#next {
+#impressconsole div#next {
     float: right;
 }
 
-div#status {
+#impressconsole div#status {
     margin-left: 2em;
     margin-right: 2em;
     text-align: center;
     float: right;
 }
 
-div#clock {
+#impressconsole div#clock {
     margin-left: 2em;
     margin-right: 2em;
     text-align: center;
     float: left;
 }
 
-div#timer {
+#impressconsole div#timer {
     margin-left: 2em;
     margin-right: 2em;
     text-align: center;
     float: left;
+}
+
+#impressconsole span.moving {
+    color: rgb(255, 0, 0);
+}
+
+#impressconsole span.ready {
+    color: rgb(0, 128, 0);
 }
