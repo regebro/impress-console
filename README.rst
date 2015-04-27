@@ -109,6 +109,8 @@ for both the console window and the main window::
 Credits
 =======
 
-* Lennart Regebro, regebro@gmail.com
+* Heiko Richler, Aico.Richler@gmx.net, minor changes in rev. 1.3
+
+* Lennart Regebro, regebro@gmail.com, main author of impressConsole
 
 * David Souther, davidsouther@gmail.com, author of the original notes.js
