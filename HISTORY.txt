@@ -17,7 +17,7 @@ HISTORY
   the html elements may be in differnt branches of the DOM tree.
 
 - In cases when the speaker console can not be opend a button overlay is
-  showen on top. Open the window by clicking this button. This can help when 
+  showen on top. Open the window by clicking this button. This can help when
   Firefox prevents a not interactive windows.open.
 
 - Added a message whether the preview showes a following slide or wheather you
@@ -35,17 +35,17 @@ HISTORY
 
 - Using the name "console" for the console cause a name conflict. It has been
   renamed to "impressConsole".
-  
+
 - Added a 'impress-console' css style to the preview windows, so you can style
   the previews separately, for example disabling transitions.
-  
+
 
 1.1 - 2013-02-19
 ----------------
 
 - Fixed a bug with Firefox, where the console on opening would have the
   upper right corner in the center of the slide.
-  
+
 
 1.0 - 2012-12-19
 ----------------
@@ -53,7 +53,7 @@ HISTORY
 - Added a "Ready/Working" status flag.
 
 - The open() call now takes a parameter, css, so you can specify another
-  css-file used for the console. This is primarily used so that you can have 
+  css-file used for the console. This is primarily used so that you can have
   so you can include impress-console in tools and themes with more freedom.
 
 - Made the default font-size smaller, as I tended to have to zoom out.
@@ -63,7 +63,7 @@ HISTORY
 
 - Improved key-handling (with inspiration from Landslide, once again) so that
   modified key-presses doesn't trigger slide changes in the console-window.
-  
+
 - Added a registerKeyEvent convenience function.
 
 - Better behavior on Firefox.
@@ -81,14 +81,14 @@ HISTORY
 - The "pre-loading" of notes loaded the wrong notes.
 
 - Added key handlers in the console, so that navigation works even if the
-  console window has focus. Tab is not supported, as that will trigger 
+  console window has focus. Tab is not supported, as that will trigger
   the next slide also when you Alt-Tab in some browsers, which is extremely
   annoying.
-  
+
 - The windows in the presenter console will now move in sync with the main
   window (unless you move to a step before the previous one has finished
   moving, in which case the presenter console will fall behind).
-  
+
 
 1.0b1 - 2012-03-30
 ------------------
