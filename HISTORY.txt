@@ -1,7 +1,7 @@
 HISTORY
 =======
 
-1.3 - Unreleased
+1.3 - 2015-04-28
 ----------------
 
 - Changed default css file to use css3 viewport units and some minor Layout
