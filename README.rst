@@ -25,7 +25,7 @@ console will look for css/impressConsole.css, so you need to locate it there.
 Then add the following to the bottom of your presentation HTML::
 
     <script src="js/impressConsole.js"></script>
-    
+
 And add this to the script where you call impress.init()::
 
     impressConsole().init();
@@ -59,7 +59,7 @@ adding a <div class="notes">The notes go here</div> to any
 step/slide that you want to have notes. The contents of that <div>
 will be picked up by the console.
 
-You will also need to hide these notes with CSS in the main presentation. 
+You will also need to hide these notes with CSS in the main presentation.
 You can for example include the following rule in your CSS::
 
    .step .notes {
@@ -91,7 +91,7 @@ The default css file location is ``css/impressConsole.css``, but you can now
 pass in a css parameter to ``init()`` to change this::
 
     impressConsole().init(css="/path/to/my.css");
-    
+
 You can now also easily register extra key-events with the
 ``registerKeyEvent()`` function. This is just a convenience method, but it is
 convenient. The function takes three parameters, of which the last one is
@@ -109,7 +109,7 @@ for both the console window and the main window::
 Credits
 =======
 
-* Heiko Richler, Aico.Richler@gmx.net, minor changes in rev. 1.3
+* Heiko Richler, Aico.Richler@gmx.net, major changes in rev. 1.3
 
 * Lennart Regebro, regebro@gmail.com, main author of impressConsole
 
