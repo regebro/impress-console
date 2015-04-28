@@ -28,6 +28,7 @@ HISTORY
   css-file to init. Example:
   impressConsole().init('CSS/impressConsoleGray.css');
 
+- Pressing <R> will now reset the timer.
 
 
 1.2 - 2014-12-04

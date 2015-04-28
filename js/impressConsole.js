@@ -326,6 +326,8 @@
                 registerKeyEvent([34, 39, 40], impress().next);
                 // 32: space
                 registerKeyEvent([32], spaceHandler);
+                // 82: R
+                registerKeyEvent([82], timerReset);
 
                 // Cleanup
                 consoleWindow.onbeforeunload = function() {
