@@ -76,6 +76,9 @@
     // Default css location
     var cssFile = "css/impressConsole.css";
 
+    // css for styling iframs on the console
+    var cssFileIframe = "css/iframe.css";
+
     // All console windows, so that you can call impressConsole() repeatedly.
     var allConsoles = {};
 
@@ -266,13 +269,17 @@
                 // Firefox:
                 slideView.contentDocument.body.classList.add('impress-console');
                 preView.contentDocument.body.classList.add('impress-console');
+                slideView.contentDocument.head.insertAdjacentHTML('beforeend', '<link rel="stylesheet" type="text/css" href="' + cssFileIframe + '">');
+                preView.contentDocument.head.insertAdjacentHTML('beforeend', '<link rel="stylesheet" type="text/css" href="' + cssFileIframe + '">');
 
                 // Chrome:
                 slideView.addEventListener('load', function() {
                         slideView.contentDocument.body.classList.add('impress-console');
+                        slideView.contentDocument.head.insertAdjacentHTML('beforeend', '<link rel="stylesheet" type="text/css" href="' + cssFileIframe + '">');
                 });
                 preView.addEventListener('load', function() {
                         preView.contentDocument.body.classList.add('impress-console');
+                        preView.contentDocument.head.insertAdjacentHTML('beforeend', '<link rel="stylesheet" type="text/css" href="' + cssFileIframe + '">');
                 });
         };
 
@@ -399,9 +406,13 @@
             preView.style.height = preViewHeight + "px";
         }
 
-        var init = function(css) {
-            if (css !== undefined) {
-                cssFile = css;
+        var init = function(cssConsole, cssIframe) {
+            if (cssConsole !== undefined) {
+                cssFile = cssConsole;
+            }
+
+            if (cssIframe !== undefined) {
+                cssFileIframe = cssIframe;
             }
 
             // Register the event
