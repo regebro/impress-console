@@ -54,7 +54,9 @@
     // This is the default template for the speaker console window
     const consoleTemplate = '<!DOCTYPE html>' +
         '<html id="impressconsole"><head>' +
-          '<link rel="stylesheet" type="text/css" media="screen" href="{{cssFile}}">' +
+          // order is important: If user provides a cssFile, those will win, because they're later
+          '{{cssStyle}}' +
+          '{{cssLink}}' +
         '</head><body>' +
         '<div id="console">' +
           '<div id="views">' +
@@ -74,10 +76,12 @@
         '</body></html>';
 
     // Default css location
-    var cssFile = "css/impressConsole.css";
+    var cssFileOldDefault = "css/impressConsole.css";
+    var cssFile = undefined;
 
     // css for styling iframs on the console
-    var cssFileIframe = "css/iframe.css";
+    var cssFileIframeOldDefault = "css/iframe.css";
+    var cssFileIframe = undefined;
 
     // All console windows, so that you can call impressConsole() repeatedly.
     var allConsoles = {};
@@ -269,17 +273,23 @@
                 // Firefox:
                 slideView.contentDocument.body.classList.add('impress-console');
                 preView.contentDocument.body.classList.add('impress-console');
-                slideView.contentDocument.head.insertAdjacentHTML('beforeend', '<link rel="stylesheet" type="text/css" href="' + cssFileIframe + '">');
-                preView.contentDocument.head.insertAdjacentHTML('beforeend', '<link rel="stylesheet" type="text/css" href="' + cssFileIframe + '">');
+                if(cssFileIframe !== undefined) {
+                    slideView.contentDocument.head.insertAdjacentHTML('beforeend', '<link rel="stylesheet" type="text/css" href="' + cssFileIframe + '">');
+                    preView.contentDocument.head.insertAdjacentHTML('beforeend', '<link rel="stylesheet" type="text/css" href="' + cssFileIframe + '">');
+                }
 
                 // Chrome:
                 slideView.addEventListener('load', function() {
                         slideView.contentDocument.body.classList.add('impress-console');
-                        slideView.contentDocument.head.insertAdjacentHTML('beforeend', '<link rel="stylesheet" type="text/css" href="' + cssFileIframe + '">');
+                        if(cssFileIframe !== undefined) {
+                            slideView.contentDocument.head.insertAdjacentHTML('beforeend', '<link rel="stylesheet" type="text/css" href="' + cssFileIframe + '">');
+                        }
                 });
                 preView.addEventListener('load', function() {
                         preView.contentDocument.body.classList.add('impress-console');
-                        preView.contentDocument.head.insertAdjacentHTML('beforeend', '<link rel="stylesheet" type="text/css" href="' + cssFileIframe + '">');
+                        if(cssFileIframe !== undefined) {
+                            preView.contentDocument.head.insertAdjacentHTML('beforeend', '<link rel="stylesheet" type="text/css" href="' + cssFileIframe + '">');
+                        }
                 });
         };
 
@@ -311,10 +321,18 @@
                     return;
                 }
 
+                var cssLink = "";
+                if( cssFile != undefined ){
+                    cssLink = '<link rel="stylesheet" type="text/css" media="screen" href="' + cssFile + '">';
+                }
+
                 // This sets the window location to the main window location, so css can be loaded:
                 consoleWindow.document.open();
                 // Write the template:
-                consoleWindow.document.write(consoleTemplate.replace("{{cssFile}}", cssFile).replace(/{{.*?}}/gi, function (x){ return lang[x.substring(2, x.length-2)]; }));
+                consoleWindow.document.write(consoleTemplate
+                                                 .replace("{{cssStyle}}", cssStyleStr()) // cssStyleStr is lots of inline <style></style> defined at the end of this file
+                                                 .replace("{{cssLink}}", cssLink)
+                                                 .replace(/{{.*?}}/gi, function (x){ return lang[x.substring(2, x.length-2)]; }));
                 consoleWindow.document.title = 'Speaker Console (' + document.title + ')';
                 consoleWindow.impress = window.impress;
                 // We set this flag so we can detect it later, to prevent infinite popups.
@@ -324,7 +342,7 @@
                 // Add clock tick
                 consoleWindow.timerStart = new Date();
                 consoleWindow.timerReset = timerReset;
-                consoleWindow.clockInterval = setInterval('impressConsole("' + rootId + '").clockTick()', 1000 );
+                consoleWindow.clockInterval = setInterval(allConsoles[rootId].clockTick, 1000 );
 
                 // keyboard navigation handlers
                 // 33: pg up, 37: left, 38: up
@@ -406,14 +424,23 @@
             preView.style.height = preViewHeight + "px";
         }
 
-        var init = function(cssConsole, cssIframe) {
+        var _init = function(cssConsole, cssIframe) {
             if (cssConsole !== undefined) {
                 cssFile = cssConsole;
+            }
+            // You can also specify the css in the presentation root div:
+            // <div id="impress" data-console-css=..." data-console-css-iframe="...">
+            else if (root.dataset.consoleCss !== undefined) {
+                cssFile = root.dataset.consoleCss;
             }
 
             if (cssIframe !== undefined) {
                 cssFileIframe = cssIframe;
             }
+            else if (root.dataset.consoleCssIframe !== undefined) {
+                cssFileIframe = root.dataset.consoleCssIframe;
+            }
+
 
             // Register the event
             root.addEventListener('impress:stepleave', onStepLeave);
@@ -428,12 +455,195 @@
 
             //Open speaker console when they press 'p'
             registerKeyEvent([80], open, window);
+
+            //Btw, you can also launch console automatically:
+            //<div id="impress" data-console-autolaunch="true">
+            if (root.dataset.consoleAutolaunch == "true"){
+                open();
+            }
         };
+
+        var init = function(cssConsole, cssIframe) {
+            if (     (cssConsole === undefined || cssConsole == cssFileOldDefault)
+                  && (cssIframe === undefined  || cssIframe == cssFileIframeOldDefault) ){
+                console.log("impressConsole.init() is deprecated. impressConsole is now initialized automatically when you call impress().init().");
+            }
+            _init(cssConsole, cssIframe);
+        };
+
+        document.addEventListener("impress:init", function() {
+            _init();
+        });
+
+        // New API for impress.js plugins is based on using events
+        root.addEventListener('impress:console:open', function(event){
+            open();
+        });
+
+        /**
+         * Register a key code to an event handler
+         * 
+         * :param: event.detail.keyCodes    List of key codes
+         * :param: event.detail.handler     A function registered as the event handler
+         * :param: event.detail.window      The console window to register the keycode in
+         */
+        root.addEventListener('impress:console:registerKeyEvent', function(event){
+            registerKeyEvent(event.detail.keyCodes, event.detail.handler, event.detail.window);
+        });
 
         // Return the object
         allConsoles[rootId] = {init: init, open: open, clockTick: clockTick, registerKeyEvent: registerKeyEvent};
         return allConsoles[rootId];
 
     };
+
+
+    // Returns a string to be used inline as a css <style> element in the console window.
+    // Apologies for length, but hiding it here at the end to keep it away from rest of the code.
+    var cssStyleStr = function(){
+        return `<style>
+            #impressconsole body {
+                background-color: rgb(255, 255, 255);
+                padding: 0;
+                margin: 0;
+                font-family: verdana, arial, sans-serif;
+                font-size: 2vw;
+            }
+
+            #impressconsole div#console {
+                position: absolute;
+                top: 0.5vw;
+                left: 0.5vw;
+                right: 0.5vw;
+                bottom: 3vw;
+                margin: 0;
+            }
+
+            #impressconsole div#views, #impressconsole div#notes {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+            }
+
+            #impressconsole div#views {
+                left: 0;
+                right: 50vw;
+                overflow: hidden;
+            }
+
+            #impressconsole div#blocker {
+                position: absolute;
+                right: 0;
+                bottom: 0;
+            }
+
+            #impressconsole div#notes {
+                left: 50vw;
+                right: 0;
+                overflow-x: hidden;
+                overflow-y: auto;
+                padding: 0.3ex;
+                background-color: rgb(255, 255, 255);
+                border: solid 1px rgb(120, 120, 120);
+            }
+
+            #impressconsole div#notes .noNotes {
+                color: rgb(200, 200, 200);
+            }
+
+            #impressconsole div#notes p {
+                margin-top: 0;
+            }
+
+            #impressconsole iframe {
+                position: absolute;
+                margin: 0;
+                padding: 0;
+                left: 0;
+                border: solid 1px rgb(120, 120, 120);
+            }
+
+            #impressconsole iframe#slideView {
+                top: 0;
+                width: 49vw;
+                height: 49vh;
+            }
+
+            #impressconsole iframe#preView {
+                opacity: 0.7;
+                top: 50vh;
+                width: 30vw;
+                height: 30vh;
+            }
+
+            #impressconsole div#controls {
+                margin: 0;
+                position: absolute;
+                bottom: 0.25vw;
+                left: 0.5vw;
+                right: 0.5vw;
+                height: 2.5vw;
+                background-color: rgb(255, 255, 255);
+                background-color: rgba(255, 255, 255, 0.6);
+            }
+
+            #impressconsole div#prev, div#next {
+            }
+
+            #impressconsole div#prev a, #impressconsole div#next a {
+                display: block;
+                border: solid 1px rgb(70, 70, 70);
+                border-radius: 0.5vw;
+                font-size: 1.5vw;
+                padding: 0.25vw;
+                text-decoration: none;
+                background-color: rgb(220, 220, 220);
+                color: rgb(0, 0, 0);
+            }
+
+            #impressconsole div#prev a:hover, #impressconsole div#next a:hover {
+                background-color: rgb(245, 245, 245);
+            }
+
+            #impressconsole div#prev {
+                float: left;
+            }
+
+            #impressconsole div#next {
+                float: right;
+            }
+
+            #impressconsole div#status {
+                margin-left: 2em;
+                margin-right: 2em;
+                text-align: center;
+                float: right;
+            }
+
+            #impressconsole div#clock {
+                margin-left: 2em;
+                margin-right: 2em;
+                text-align: center;
+                float: left;
+            }
+
+            #impressconsole div#timer {
+                margin-left: 2em;
+                margin-right: 2em;
+                text-align: center;
+                float: left;
+            }
+
+            #impressconsole span.moving {
+                color: rgb(255, 0, 0);
+            }
+
+            #impressconsole span.ready {
+                color: rgb(0, 128, 0);
+            }
+        </style>`;
+    };
+
+    impressConsole();
 
 })(document, window);
