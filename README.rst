@@ -92,6 +92,12 @@ pass in a css parameter to ``init()`` to change this::
 
     impressConsole().init(css="/path/to/my.css");
 
+You can also add special css that will only affect the presentation previews.
+This is only necessary if you for some reason need to have different styles in
+the previews and the actual presentation.
+
+    impressConsole().init(cssPreview="/path/to/myPreview.css");
+
 You can now also easily register extra key-events with the
 ``registerKeyEvent()`` function. This is just a convenience method, but it is
 convenient. The function takes three parameters, of which the last one is

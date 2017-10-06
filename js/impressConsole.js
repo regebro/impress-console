@@ -77,7 +77,7 @@
     var cssFile = "css/impressConsole.css";
 
     // css for styling iframs on the console
-    var cssFileIframe = "css/iframe.css";
+    var cssFileIframe = "css/impressConsolePreview.css";
 
     // All console windows, so that you can call impressConsole() repeatedly.
     var allConsoles = {};
@@ -406,13 +406,13 @@
             preView.style.height = preViewHeight + "px";
         }
 
-        var init = function(cssConsole, cssIframe) {
-            if (cssConsole !== undefined) {
-                cssFile = cssConsole;
+        var init = function(css, cssPreview) {
+            if (css !== undefined) {
+                cssFile = css;
             }
 
-            if (cssIframe !== undefined) {
-                cssFileIframe = cssIframe;
+            if (cssPreview !== undefined) {
+                cssFileIframe = cssPreview;
             }
 
             // Register the event
