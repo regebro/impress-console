@@ -78,6 +78,8 @@ scrolling. If there is, it will instead scroll down one page.
 text needs scrolling. <left>, <up> and <page up> will move to the previous
 <slide.
 
+<g> Will ask for a slide number and then move to that slide.
+
 The preview is based on the assumption that the presentation is linear and
 that the next slide is well, the next slide. If it isn't and you move around
 the presentation by clicking with the mouse, then the preview will not be
