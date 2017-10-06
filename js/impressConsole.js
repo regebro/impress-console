@@ -112,7 +112,6 @@
             while (nextElement) {
                 classes = nextElement.attributes['class'];
                 if (classes && classes.value.indexOf('step') !== -1) {
-                    consoleWindow.document.getElementById('blocker').innerHTML = lang.next;
                     return nextElement;
                 }
 
@@ -128,7 +127,6 @@
                 }
             }
             // No next element. Pick the first
-            consoleWindow.document.getElementById('blocker').innerHTML = lang.restart;
             return document.querySelector('.step');
         };
 
