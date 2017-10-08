@@ -5,9 +5,9 @@
  *
  * MIT Licensed, see license.txt.
  *
- * Copyright 2012, 2013, 2015 impress-console contributors (see README.txt)
+ * Copyright 2012-2017 impress-console contributors (see README.txt)
  *
- * version: 1.4-dev
+ * version: 1.4
  *
  */
 

@@ -117,6 +117,8 @@ for both the console window and the main window::
 Credits
 =======
 
+* Alberto Sartori and Frederik Möllers for additions to what became 1.4.
+
 * Heiko Richler, Aico.Richler@gmx.net, major changes in rev. 1.3
 
 * Lennart Regebro, regebro@gmail.com, main author of impressConsole
