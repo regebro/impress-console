@@ -7,7 +7,7 @@
  *
  * Copyright 2012, 2013, 2015 impress-console contributors (see README.txt)
  *
- * version: 1.3-dev
+ * version: 1.4-dev
  *
  */
 
@@ -214,6 +214,8 @@
 
             if (isNaN(target)) {
                 var goto_status = impress().goto(target);
+            } else if (target === null) {
+                return;
             } else {
                 // goto(0) goes to step-1, so substract
                 var goto_status = impress().goto(parseInt(target) - 1);
@@ -350,8 +352,7 @@
                 // 82: R
                 registerKeyEvent([82], timerReset);
                 // 71: G
-                registerKeyEvent([71], gotoSlide, consoleWindow);
-                registerKeyEvent([71], gotoSlide, window);
+                registerKeyEvent([71], gotoSlide);
 
                 // Cleanup
                 consoleWindow.onbeforeunload = function() {
@@ -436,15 +437,18 @@
             root.addEventListener('impress:stepleave', onStepLeave);
             root.addEventListener('impress:stepenter', onStepEnter);
 
-            //When the window closes, clean up after ourselves.
+            // When the window closes, clean up after ourselves.
             window.onunload = function(){
                 if (consoleWindow && !consoleWindow.closed) {
                     consoleWindow.close();
                 }
             };
 
-            //Open speaker console when they press 'p'
+            // Open speaker console when they press 'p'
             registerKeyEvent([80], open, window);
+            // Goto a slide number when they press 'g'
+            registerKeyEvent([71], gotoSlide, window);
+
         };
 
         // Return the object
