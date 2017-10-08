@@ -1,7 +1,7 @@
 HISTORY
 =======
 
-1.4.1 - Unreleased
+1.4.1 - 2017-10-08
 ------------------
 
 - Make the default of the preview CSS file be "null" to avoid 404 errors when
