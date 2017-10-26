@@ -110,8 +110,8 @@ the even should be bound to. This defaults to the console window.
 This code will make the <N> key (value 78) call the showSlideNumbers function
 for both the console window and the main window::
 
-      impressConsole().registerKeyEvent([78], showSlideNumbers)
-      impressConsole().registerKeyEvent([78], showSlideNumbers, window)
+      impressConsole().registerKeyEvent([78], showSlideNumbers);
+      impressConsole().registerKeyEvent([78], showSlideNumbers, window);
 
 
 Credits
