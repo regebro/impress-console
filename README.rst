@@ -1,3 +1,10 @@
+impress-console is now a part of impress.js
+===========================================
+
+Further development is done at https://github.com/impress/impress.js/
+This repository will remain here for backwards compatibility.
+
+
 impress-console
 ===============
 
